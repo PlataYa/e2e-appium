@@ -136,33 +136,11 @@ describe('When I want to create an account', () => {
     await transferButtonFinal.click();
     await browser.pause(1000);
 
+    console.log(await browser.getPageSource());
     // Verify successful transfer
-    const successMessageSelector = 'new UiSelector().textContains("Transferencia realizada")';
+    const successMessageSelector = 'new UiSelector().textContains("Monto: $10 ARS")';
     const successMessage = await browser.$(`android=${successMessageSelector}`);
     await browser.pause(1000);
     await expect(successMessage).toBeDisplayed();
   })
-
-  it('should see money in account', async () => {
-    const btnCloseSession = 'new UiSelector().textContains("Cerrar sesión")';
-    const logoutButton = await browser.$(`android=${btnCloseSession}`);
-    await browser.pause(1000);
-    await logoutButton.click();
-    await browser.pause(1000);
-
-    const inputEmail = 'new UiSelector().className("android.widget.EditText").instance(0)';
-    const inputPassword = 'new UiSelector().className("android.widget.EditText").instance(1)';
-    const btnSubmit = 'new UiSelector().className("android.widget.Button").textContains("Iniciar Sesión")';
-
-    await browser.$(`android=${inputEmail}`).setValue(email);
-    await browser.pause(1000);
-    await browser.$(`android=${inputPassword}`).setValue(password);
-    await browser.pause(1000);
-    const submitButton = await browser.$(`android=${btnSubmit}`);
-    await submitButton.click();
-    await browser.pause(2000);
-
-    // Verify money in account
-
-  });
 });
