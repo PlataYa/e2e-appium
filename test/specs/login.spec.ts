@@ -2,6 +2,7 @@ import { browser, expect } from "@wdio/globals";
 
 describe('When I want to create an account', () => {
   const email = `testuser${Date.now()}@example.com`;
+  const password = 'TestPassword123!';
 
   it('should redirect to register', async () => {
     const redirectRegisterButton = 'new UiSelector().textContains("No tenés cuenta? Registrate")';
@@ -20,7 +21,6 @@ describe('When I want to create an account', () => {
 
     const name = 'Test';
     const surname = 'User';
-    const password = 'TestPassword123';
     const birthDate = '2000-01-01';
 
     const inputName = 'new UiSelector().className("android.widget.EditText").instance(0)';
@@ -39,7 +39,7 @@ describe('When I want to create an account', () => {
     await browser.$(`android=${inputPassword}`).setValue(password);
     await browser.pause(1000);
     await browser.$(`android=${inputBirthDate}`).setValue(birthDate);
-
+    await browser.pause(1000);
     const submitButton = await browser.$(`android=${btnSubmit}`);
     await browser.pause(1000);
     await submitButton.click();
@@ -58,8 +58,6 @@ describe('When I want to create an account', () => {
     const inputEmail = 'new UiSelector().className("android.widget.EditText").instance(0)';
     const inputPassword = 'new UiSelector().className("android.widget.EditText").instance(1)';
     const btnSubmit = 'new UiSelector().className("android.widget.Button").textContains("Iniciar Sesión")';
-
-    const password = 'TestPassword123';
 
     await browser.$(`android=${inputEmail}`).setValue(email);
     await browser.pause(1000);
@@ -104,7 +102,7 @@ describe('When I want to create an account', () => {
     await browser.pause(1000);
 
     const richMail = 'nacho@mail.com'
-    const richPassword = 'asdf';
+    const richPassword = 'Sape123!';
 
     const inputEmail = 'new UiSelector().className("android.widget.EditText").instance(0)';
     const inputPassword = 'new UiSelector().className("android.widget.EditText").instance(1)';
@@ -118,36 +116,53 @@ describe('When I want to create an account', () => {
     await submitButton.click();
     await browser.pause(1000);
 
-    const transferButtonSelector = 'new UiSelector().textContains("Transferir")';
+    const transferButtonSelector = 'new UiSelector().textContains("Transferir a PlataYa")';
     const transferButton = await browser.$(`android=${transferButtonSelector}`);
     await browser.pause(1000);
     await transferButton.click();
+    await browser.pause(3000); // Aumentamos el tiempo de espera para asegurar que la página se cargue completamente
+
+    // Usando los textos exactos que aparecen en los EditText según la jerarquía
+    const inputCVUSelector = 'new UiSelector().className("android.widget.EditText").instance(0)'; // CVU
+    await browser.$(`android=${inputCVUSelector}`).setValue(cvu);
     await browser.pause(1000);
 
-    // console.log(await browser.getPageSource());
-    const modalTitleSelector = 'new UiSelector().textContains("Bienvenido, nacho capo")';
-    const modalTitle = await browser.$(`android=${modalTitleSelector}`);
-    await expect(modalTitle).toBeDisplayed();
+    const inputAmountSelector = 'new UiSelector().className("android.widget.EditText").instance(1)';
+    await browser.$(`android=${inputAmountSelector}`).setValue('10');
+    await browser.pause(1000);
 
-    // const inputCVU = 'new UiSelector().className("android.widget.EditText").instance(0)';
-    // await browser.$(`android=${inputCVU}`).setValue(cvu);
-    // await browser.pause(1000);
-    // const inputAmount = 'new UiSelector().className("android.widget.EditText").instance(1)';
-    // await browser.$(`android=${inputAmount}`).setValue('10');
-    // await browser.pause(1000);
-    // const btnTransfer = 'new UiSelector().className("android.widget.Button").textContains("Transferir")';
-    // const transferButtonFinal = await browser.$(`android=${btnTransfer}`);
-    // await transferButtonFinal.click();
-    // await browser.pause(5000);
-    //
-    // // Verify successful transfer
-    // const successMessageSelector = 'new UiSelector().textContains("Éxito: Transferencia exitosa")';
-    // const successMessage = await browser.$(`android=${successMessageSelector}`);
-    // await browser.pause(1000);
-    // await expect(successMessage).toBeDisplayed();
+    const btnTransfer = 'new UiSelector().className("android.widget.Button").textContains("Confirmar")';
+    const transferButtonFinal = await browser.$(`android=${btnTransfer}`);
+    await transferButtonFinal.click();
+    await browser.pause(1000);
+
+    // Verify successful transfer
+    const successMessageSelector = 'new UiSelector().textContains("Transferencia realizada")';
+    const successMessage = await browser.$(`android=${successMessageSelector}`);
+    await browser.pause(1000);
+    await expect(successMessage).toBeDisplayed();
   })
 
-  it('modal', async () => {
-    console.log(await browser.getPageSource());
+  it('should see money in account', async () => {
+    const btnCloseSession = 'new UiSelector().textContains("Cerrar sesión")';
+    const logoutButton = await browser.$(`android=${btnCloseSession}`);
+    await browser.pause(1000);
+    await logoutButton.click();
+    await browser.pause(1000);
+
+    const inputEmail = 'new UiSelector().className("android.widget.EditText").instance(0)';
+    const inputPassword = 'new UiSelector().className("android.widget.EditText").instance(1)';
+    const btnSubmit = 'new UiSelector().className("android.widget.Button").textContains("Iniciar Sesión")';
+
+    await browser.$(`android=${inputEmail}`).setValue(email);
+    await browser.pause(1000);
+    await browser.$(`android=${inputPassword}`).setValue(password);
+    await browser.pause(1000);
+    const submitButton = await browser.$(`android=${btnSubmit}`);
+    await submitButton.click();
+    await browser.pause(2000);
+
+    // Verify money in account
+
   });
 });
