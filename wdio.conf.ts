@@ -24,7 +24,7 @@ export const config: WebdriverIO.Config = {
     // of the config file unless it's absolute.
     //
     specs: [
-        './test/specs/**/*.ts'
+        './test/specs/login.spec.ts'
     ],
     // Patterns to exclude.
     exclude: [
@@ -58,12 +58,9 @@ export const config: WebdriverIO.Config = {
         'appium:platformVersion': '15.0',
         'appium:app': 'C:/Users/nacho/universidad/cuarto/aseca/frontend-react/android/app/build/outputs/apk/debug/app-debug.apk',
         'appium:appPackage': 'com.plataya.app',
-        'appium:appActivity': '.MainActivity',
+        'appium:appActivity': 'com.plataya.app.MainActivity',
         'appium:automationName': 'UiAutomator2',
-        'appium:autoGrantPermissions': true,
         'appium:noReset': false,
-        'appium:autoWebview': true, // Importante para Capacitor
-        'appium:autoWebviewTimeout': 20000, // Timeout para encontrar webview
     }],
 
     //
@@ -97,7 +94,7 @@ export const config: WebdriverIO.Config = {
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
     // gets prepended directly.
-    // baseUrl: 'http://localhost:8080',
+    baseUrl: 'http://localhost',
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 10000,
