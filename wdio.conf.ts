@@ -53,14 +53,17 @@ export const config: WebdriverIO.Config = {
     // https://saucelabs.com/platform/platform-configurator
     //
     capabilities: [{
-        // capabilities for local Appium web tests on an Android Emulator
         platformName: 'Android',
         'appium:deviceName': 'emulator-5554',
         'appium:platformVersion': '15.0',
         'appium:app': 'C:/Users/nacho/universidad/cuarto/aseca/frontend-react/android/app/build/outputs/apk/debug/app-debug.apk',
         'appium:appPackage': 'com.plataya.app',
         'appium:appActivity': '.MainActivity',
-        'appium:automationName': 'UiAutomator2'
+        'appium:automationName': 'UiAutomator2',
+        'appium:autoGrantPermissions': true,
+        'appium:noReset': false,
+        'appium:autoWebview': true, // Importante para Capacitor
+        'appium:autoWebviewTimeout': 20000, // Timeout para encontrar webview
     }],
 
     //

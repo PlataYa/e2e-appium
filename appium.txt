@@ -1,0 +1,4 @@
+appium:
+- Correr 'appium' en consola
+- Correr 'npx wdio run wdio.conf.js' para correr todos los tests
+- Correr 'npx wdio run wdio.conf.js --mochaOpts.greap <TU-TEXTO-AQUI>' para correr solo los tests cuya descripción contenga 'TU-TEXTO-AQUI'
