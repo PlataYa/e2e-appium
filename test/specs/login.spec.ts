@@ -43,7 +43,7 @@ describe('When I want to create an account', () => {
     const submitButton = await browser.$(`android=${btnSubmit}`);
     await browser.pause(1000);
     await submitButton.click();
-    await browser.pause(1000);
+    await browser.pause(2000);
 
     // Verify successful registration
     const titleSelector = 'new UiSelector().textContains("Iniciar sesión")';
@@ -101,8 +101,8 @@ describe('When I want to create an account', () => {
     await logoutButton.click();
     await browser.pause(1000);
 
-    const richMail = 'nacho@mail.com'
-    const richPassword = 'Sape123!';
+    const richMail = 'martina@mail.com'
+    const richPassword = 'Contraseña1!';
 
     const inputEmail = 'new UiSelector().className("android.widget.EditText").instance(0)';
     const inputPassword = 'new UiSelector().className("android.widget.EditText").instance(1)';
